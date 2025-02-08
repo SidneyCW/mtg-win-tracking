@@ -1,66 +1,94 @@
 {
     "Cole": {
         "wins": 2,
-        "losses": 0,
+        "losses": 1,
         "decks": [
             "mardu"
         ],
         "matches": [
             "1CKJSR",
-            "2CKJSR"
+            "2CKJSR",
+            "7CKSJR"
         ]
     },
     "Keean": {
-        "wins": 2,
-        "losses": 2,
+        "wins": 6,
+        "losses": 7,
         "decks": [
             "wb",
             "arti",
-            "vamp"
+            "vamp",
+            "mill",
+            "Sliver"
         ],
         "matches": [
             "1CKJSR",
             "2CKJSR",
             "3KS",
-            "4KS"
+            "4KS",
+            "5KS",
+            "6KSJR",
+            "7CKSJR",
+            "8KS",
+            "9KS",
+            "10KS",
+            "11KS",
+            "12KS",
+            "13KS"
         ]
     },
     "Jack": {
         "wins": 0,
-        "losses": 2,
+        "losses": 4,
         "decks": [
             "creed",
-            "pois"
+            "pois",
+            "toxic"
         ],
         "matches": [
             "1CKJSR",
-            "2CKJSR"
+            "2CKJSR",
+            "6KSJR",
+            "7CKSJR"
         ]
     },
     "Sidney": {
-        "wins": 0,
-        "losses": 4,
+        "wins": 4,
+        "losses": 9,
         "decks": [
             "mardu",
-            "ninja"
+            "ninja",
+            "rb"
         ],
         "matches": [
             "1CKJSR",
             "2CKJSR",
             "3KS",
-            "4KS"
+            "4KS",
+            "5KS",
+            "6KSJR",
+            "7CKSJR",
+            "8KS",
+            "9KS",
+            "10KS",
+            "11KS",
+            "12KS",
+            "13KS"
         ]
     },
     "Romeo": {
-        "wins": 0,
-        "losses": 2,
+        "wins": 1,
+        "losses": 3,
         "decks": [
             "veh",
-            "leg"
+            "leg",
+            "token"
         ],
         "matches": [
             "1CKJSR",
-            "2CKJSR"
+            "2CKJSR",
+            "6KSJR",
+            "7CKSJR"
         ]
     }
 }
