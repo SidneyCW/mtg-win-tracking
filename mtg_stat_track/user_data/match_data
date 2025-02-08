@@ -1,0 +1,40 @@
+{
+    "1CKJSR": {
+        "winner": "Cole",
+        "play_num": 5,
+        "players": {
+            "Cole": "mardu",
+            "Keean": "wb",
+            "Jack": "creed",
+            "Sidney": "mardu",
+            "Romeo": "veh"
+        }
+    },
+    "2CKJSR": {
+        "winner": "Cole",
+        "play_num": 5,
+        "players": {
+            "Cole": "mardu",
+            "Keean": "arti",
+            "Jack": "pois",
+            "Sidney": "ninja",
+            "Romeo": "leg"
+        }
+    },
+    "3KS": {
+        "winner": "Keean",
+        "play_num": 2,
+        "players": {
+            "Keean": "vamp",
+            "Sidney": "mardu"
+        }
+    },
+    "4KS": {
+        "winner": "Keean",
+        "play_num": 2,
+        "players": {
+            "Keean": "arti",
+            "Sidney": "ninja"
+        }
+    }
+}

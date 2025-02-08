@@ -1,0 +1,66 @@
+{
+    "Cole": {
+        "wins": 2,
+        "losses": 0,
+        "decks": [
+            "mardu"
+        ],
+        "matches": [
+            "1CKJSR",
+            "2CKJSR"
+        ]
+    },
+    "Keean": {
+        "wins": 2,
+        "losses": 2,
+        "decks": [
+            "wb",
+            "arti",
+            "vamp"
+        ],
+        "matches": [
+            "1CKJSR",
+            "2CKJSR",
+            "3KS",
+            "4KS"
+        ]
+    },
+    "Jack": {
+        "wins": 0,
+        "losses": 2,
+        "decks": [
+            "creed",
+            "pois"
+        ],
+        "matches": [
+            "1CKJSR",
+            "2CKJSR"
+        ]
+    },
+    "Sidney": {
+        "wins": 0,
+        "losses": 4,
+        "decks": [
+            "mardu",
+            "ninja"
+        ],
+        "matches": [
+            "1CKJSR",
+            "2CKJSR",
+            "3KS",
+            "4KS"
+        ]
+    },
+    "Romeo": {
+        "wins": 0,
+        "losses": 2,
+        "decks": [
+            "veh",
+            "leg"
+        ],
+        "matches": [
+            "1CKJSR",
+            "2CKJSR"
+        ]
+    }
+}
