@@ -12,6 +12,13 @@ def new_game(people, decks, winner):
     except (FileNotFoundError, json.JSONDecodeError):
         matches = {}
 
+    length_check_D = {x for x in decks if len(x) > 6}
+    length_check_P = {x for x in people if len(x) > 6}
+    winner_check = winner not in people
+
+    if len(length_check_D) > 0 or len(length_check_P > 0) or winner_check:
+        return None
+    
     # Prepare player-deck dictionary
     players = {person: decks[i] for i, person in enumerate(people)}
 
