@@ -10,6 +10,14 @@ app = Flask(__name__)
 USER_DATA_PATH = "user_data/users"
 MATCH_DATA_PATH = "user_data/match_data"
 
+@app.context_processor
+def override_url_for():
+    def hashed_url_for(endpoint, **values):
+        if endpoint == 'static':
+            values['q'] = int(time.time())  # Adds a timestamp to force reload
+        return url_for(endpoint, **values)
+    return dict(url_for=hashed_url_for)
+
 # Home page
 @app.route('/')
 def home():
