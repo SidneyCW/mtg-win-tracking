@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<a href="Main.html"></a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">MTG Game Tracker</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="page1.html">Weekly History</a></li>
+            <li><a href="page2.html">Vault</a></li>
+        </ul>
+    </nav>
+
+
+
+    <section class="main-content">
+        <h1>Enter Game Data</h1>
+        <div class="player-section">
+        <form id="gameForm">
+            <label for="numPlayers">Number of Players:</label>
+            <input type="number" id="numPlayers" min="1" max="10" value="2" onchange="updatePlayers()" required />
+
+            <div id="playersContainer">
+                <!-- Player name inputs will be added here dynamically -->
+            </div>
+
+            <label for="winner">Winner:</label>
+            <select id="winner" required>
+                <option value="">Select Winner</option>
+            </select>
+
+            <div id="decksContainer">
+                <!-- Deck input fields will be added here dynamically -->
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+
+
+
+    
+</body>
+</html>
