@@ -16,7 +16,7 @@ def new_game(people, decks, winner):
     length_check_P = {x for x in people if len(x) > 6}
     winner_check = winner not in people
 
-    if len(length_check_D) > 0 or len(length_check_P > 0) or winner_check:
+    if len(length_check_D) > 0 or len(length_check_P) > 0 or winner_check:
         return None
     
     # Prepare player-deck dictionary

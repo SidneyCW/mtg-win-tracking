@@ -1,6 +1,6 @@
 {
     "Cole": {
-        "wins": 2,
+        "wins": 3,
         "losses": 1,
         "decks": [
             "mardu"
@@ -8,12 +8,13 @@
         "matches": [
             "1CKJSR",
             "2CKJSR",
-            "7CKSJR"
+            "7CKSJR",
+            "14SRCJK"
         ]
     },
     "Keean": {
         "wins": 6,
-        "losses": 7,
+        "losses": 8,
         "decks": [
             "wb",
             "arti",
@@ -34,31 +35,35 @@
             "10KS",
             "11KS",
             "12KS",
-            "13KS"
+            "13KS",
+            "14SRCJK"
         ]
     },
     "Jack": {
         "wins": 0,
-        "losses": 4,
+        "losses": 5,
         "decks": [
             "creed",
             "pois",
-            "toxic"
+            "toxic",
+            "veh"
         ],
         "matches": [
             "1CKJSR",
             "2CKJSR",
             "6KSJR",
-            "7CKSJR"
+            "7CKSJR",
+            "14SRCJK"
         ]
     },
     "Sidney": {
         "wins": 4,
-        "losses": 9,
+        "losses": 11,
         "decks": [
             "mardu",
             "ninja",
-            "rb"
+            "rb",
+            "cat"
         ],
         "matches": [
             "1CKJSR",
@@ -73,12 +78,14 @@
             "10KS",
             "11KS",
             "12KS",
-            "13KS"
+            "13KS",
+            "15SR",
+            "14SRCJK"
         ]
     },
     "Romeo": {
-        "wins": 1,
-        "losses": 3,
+        "wins": 2,
+        "losses": 4,
         "decks": [
             "veh",
             "leg",
@@ -88,7 +95,29 @@
             "1CKJSR",
             "2CKJSR",
             "6KSJR",
-            "7CKSJR"
+            "7CKSJR",
+            "15SR",
+            "14SRCJK"
+        ]
+    },
+    "Alice": {
+        "wins": 1,
+        "losses": 0,
+        "decks": [
+            "Red"
+        ],
+        "matches": [
+            "14AB"
+        ]
+    },
+    "Bob": {
+        "wins": 0,
+        "losses": 1,
+        "decks": [
+            "Blue"
+        ],
+        "matches": [
+            "14AB"
         ]
     }
 }

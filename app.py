@@ -13,7 +13,7 @@ MATCH_DATA_PATH = "user_data/match_data"
 # Home page
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('Main.html')
 
 # API to start a new game
 @app.route('/new_game', methods=['POST'])
