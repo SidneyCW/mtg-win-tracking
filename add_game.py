@@ -1,27 +1,22 @@
-import sys
-import json
-import mysql.connector
-from flask import Flask, request, jsonify, render_template, url_for
 from db_util import get_db_connection
+from init_new_player import init_player
+
 def update_player_stats(person, deck, key, win=False):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # Check if player exists
-    cursor.execute("SELECT * FROM users WHERE name = %s", (person,))
-    player = cursor.fetchone()
+    # Initialize the player if they don't exist
+    init_player(person)
 
-    if player:
-        # Update existing player
-        cursor.execute("UPDATE users SET wins = wins + %s, losses = losses + %s WHERE name = %s",
-                       (1 if win else 0, 0 if win else 1, person))
+    # Update player stats
+    if win:
+        cursor.execute("UPDATE users SET wins = wins + 1 WHERE name = %s", (person,))
     else:
-        # Create new player
-        cursor.execute("INSERT INTO users (name, wins, losses) VALUES (%s, %s, %s)",
-                       (person, 1 if win else 0, 0 if win else 1))
+        cursor.execute("UPDATE users SET losses = losses + 1 WHERE name = %s", (person,))
 
     conn.commit()
     conn.close()
+
 
 def gen_key(people):
     conn = get_db_connection()
