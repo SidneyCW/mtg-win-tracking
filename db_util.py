@@ -2,7 +2,7 @@ import mysql.connector
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'flaskuser',
-    'password': 'theKraken1234',
+    'password': 'DrXrus_5425',
     'database': 'mtg_tracker'
 }
 
