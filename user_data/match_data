@@ -1,0 +1,117 @@
+{
+    "1CKJSR": {
+        "winner": "Cole",
+        "play_num": 5,
+        "players": {
+            "Cole": "mardu",
+            "Keean": "wb",
+            "Jack": "creed",
+            "Sidney": "mardu",
+            "Romeo": "veh"
+        }
+    },
+    "2CKJSR": {
+        "winner": "Cole",
+        "play_num": 5,
+        "players": {
+            "Cole": "mardu",
+            "Keean": "arti",
+            "Jack": "pois",
+            "Sidney": "ninja",
+            "Romeo": "leg"
+        }
+    },
+    "3KS": {
+        "winner": "Keean",
+        "play_num": 2,
+        "players": {
+            "Keean": "vamp",
+            "Sidney": "mardu"
+        }
+    },
+    "4KS": {
+        "winner": "Keean",
+        "play_num": 2,
+        "players": {
+            "Keean": "arti",
+            "Sidney": "ninja"
+        }
+    },
+    "5KS": {
+        "winner": "Sidney",
+        "play_num": 2,
+        "players": {
+            "Keean": "arti",
+            "Sidney": "ninja"
+        }
+    },
+    "6KSJR": {
+        "winner": "Romeo",
+        "play_num": 4,
+        "players": {
+            "Keean": "wb",
+            "Sidney": "mardu",
+            "Jack": "creed",
+            "Romeo": "veh"
+        }
+    },
+    "7CKSJR": {
+        "winner": "Sidney",
+        "play_num": 5,
+        "players": {
+            "Cole": "mardu",
+            "Keean": "mill",
+            "Sidney": "ninja",
+            "Jack": "toxic",
+            "Romeo": "token"
+        }
+    },
+    "8KS": {
+        "winner": "Keean",
+        "play_num": 2,
+        "players": {
+            "Keean": "vamp",
+            "Sidney": "mardu"
+        }
+    },
+    "9KS": {
+        "winner": "Keean",
+        "play_num": 2,
+        "players": {
+            "Keean": "mill",
+            "Sidney": "rb"
+        }
+    },
+    "10KS": {
+        "winner": "Sidney",
+        "play_num": 2,
+        "players": {
+            "Keean": "arti",
+            "Sidney": "ninja"
+        }
+    },
+    "11KS": {
+        "winner": "Keean",
+        "play_num": 2,
+        "players": {
+            "Keean": "wb",
+            "Sidney": "mardu"
+        }
+    },
+    "12KS": {
+        "winner": "Keean",
+        "play_num": 2,
+        "players": {
+            "Keean": "Sliver",
+            "Sidney": "rb"
+        }
+    },
+    "13KS": {
+        "winner": "Sidney",
+        "play_num": 2,
+        "players": {
+            "Keean": "Sliver",
+            "Sidney": "rb"
+        }
+    }
+}

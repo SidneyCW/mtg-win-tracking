@@ -1,25 +1,31 @@
-import mysql.connector
-from app import get_db_connection
-
+import sys
+import json
+#hey
 def init_player(name):
-    """Initializes a new player in the MySQL database if they don't already exist."""
-    
-    conn = get_db_connection()
-    cursor = conn.cursor()
+    """Initializes a new player with default stats and saves to the users JSON file."""
+    user = {
+        "wins": 0,
+        "losses": 0,
+        "decks": [],
+        "matches": []  # Added to track match history
+    }
+
+    try:
+        with open("user_data/users", "r") as file:
+            users = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        users = {}  # If file is missing or empty, create a new dictionary
 
     # Check if player already exists
-    cursor.execute("SELECT * FROM users WHERE name = %s", (name,))
-    player = cursor.fetchone()
+    if name in users:
+        return users[name]  # Return existing player data
 
-    if player:
-        conn.close()
-        return player  # Return existing player data
+    # Add new player
+    users[name] = user
 
-    # Insert new player with default stats
-    cursor.execute("INSERT INTO users (name, wins, losses) VALUES (%s, 0, 0)", (name,))
-    conn.commit()
-    conn.close()
+    # Save updated users data
+    with open("user_data/users", "w") as file:
+        json.dump(users, file, indent=4)
 
-    return {"name": name, "wins": 0, "losses": 0}  # Return new player data
-
+    return user  # Return the newly created player data
 
