@@ -98,10 +98,10 @@ function handleFormSubmit(event) {
         winner: winner
     };
 
-    fetch('/new_game', {  // Send data to Flask backend
-        method: 'POST',
+    fetch("/start_game", {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json"
         },
         body: JSON.stringify(data)
     })
