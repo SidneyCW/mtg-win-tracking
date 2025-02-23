@@ -14,6 +14,24 @@ def update_player_stats(person, deck, key, win=False):
     else:
         cursor.execute("UPDATE users SET losses = losses + 1 WHERE name = %s", (person,))
 
+    # Check if the deck exists in `player_decks`
+    cursor.execute("SELECT * FROM player_decks WHERE player_name = %s AND deck = %s", (person, deck))
+    existing_deck = cursor.fetchone()
+
+    if existing_deck:
+        # Update deck stats
+        cursor.execute("""
+            UPDATE player_decks
+            SET wins = wins + %s, games_played = games_played + 1
+            WHERE player_name = %s AND deck = %s
+        """, (1 if win else 0, person, deck))
+    else:
+        # Insert a new deck record
+        cursor.execute("""
+            INSERT INTO player_decks (player_name, deck, wins, games_played)
+            VALUES (%s, %s, %s, 1)
+        """, (person, deck, 1 if win else 0))
+        
     conn.commit()
     conn.close()
 
