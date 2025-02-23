@@ -19,7 +19,7 @@ def init_db():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(50) UNIQUE NOT NULL,
+            name VARCHAR(50) UNIQUE NOT NULL COLLATE utf8_general_ci,
             wins INT DEFAULT 0,
             losses INT DEFAULT 0
         )
@@ -28,8 +28,8 @@ def init_db():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS matches (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            match_key VARCHAR(50) UNIQUE NOT NULL,
-            winner VARCHAR(50) NOT NULL,
+            match_key VARCHAR(50) UNIQUE NOT NULL COLLATE utf8_general_ci,
+            winner VARCHAR(50) NOT NULL COLLATE utf8_general_ci,
             play_num INT NOT NULL
         )
     ''')
@@ -37,8 +37,8 @@ def init_db():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS match_players (
             match_id INT,
-            player_name VARCHAR(50),
-            deck VARCHAR(50),
+            player_name VARCHAR(50) COLLATE utf8_general_ci,
+            deck VARCHAR(50) COLLATE utf8_general_ci,
             FOREIGN KEY (match_id) REFERENCES matches(id) ON DELETE CASCADE
         )
     ''')
@@ -46,8 +46,8 @@ def init_db():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS player_decks (
             id INT AUTO_INCREMENT PRIMARY KEY,
-            player_name VARCHAR(50),
-            deck VARCHAR(50),
+            player_name VARCHAR(50) COLLATE utf8_general_ci,
+            deck VARCHAR(50) COLLATE utf8_general_ci,
             wins INT DEFAULT 0,
             games_played INT DEFAULT 0,
             UNIQUE(player_name, deck),
