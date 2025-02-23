@@ -1,4 +1,5 @@
 import mysql.connector
+
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'flaskuser',
@@ -6,11 +7,11 @@ DB_CONFIG = {
     'database': 'mtg_tracker'
 }
 
-# initializes the connection to the database givin the credentials initialized above
+# Initializes the connection to the database given the credentials above
 def get_db_connection():
     return mysql.connector.connect(**DB_CONFIG)
 
-# initializes the database given that the database does not have any tables yet
+# Initializes the database if tables do not exist
 def init_db():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -39,6 +40,18 @@ def init_db():
             player_name VARCHAR(50),
             deck VARCHAR(50),
             FOREIGN KEY (match_id) REFERENCES matches(id) ON DELETE CASCADE
+        )
+    ''')
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS player_decks (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            player_name VARCHAR(50),
+            deck VARCHAR(50),
+            wins INT DEFAULT 0,
+            games_played INT DEFAULT 0,
+            UNIQUE(player_name, deck),
+            FOREIGN KEY (player_name) REFERENCES users(name) ON DELETE CASCADE
         )
     ''')
 
