@@ -83,6 +83,16 @@ def get_players():
 
     return jsonify(players)
 
+@app.route("/get_decks", methods=["GET"])
+def get_decks():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT DISTINCT deck FROM player_decks")
+    decks = [row["deck"] for row in cursor.fetchall()]
+    conn.close()
+
+    return jsonify({"decks": decks})
+
 # Run the app on Raspberry Pi
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
