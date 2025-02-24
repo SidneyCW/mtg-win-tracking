@@ -5,7 +5,7 @@
     <a href="Main.html"></a>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Register</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
@@ -46,52 +46,24 @@
     
       </section>
     </nav>
-      
 
 
 
 
-
-    <!-- PLAYER WINNER SECTION -->
 
     <section class="player-section">
-      <h2>Add Game</h2>
-  
-      <!-- Dropdown for Number of Players -->
-      <label for="numPlayers">Number of Players:</label>
-      <select id="numPlayers" onchange="updatePlayers()">
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-      </select>
-  
-      <!-- Player Selection Box -->
-      <div id="playersContainer"></div>
-  
-      <!-- Deck Selection Box -->
-      <div id="decksContainer"></div>
-  
-      <!-- Winner Selection Box -->
-      <label for="winner">Select Winner:</label>
-      <select id="winner">
-          <option value="">Select Winner</option>
-      </select>
-  
-      <!-- Submit Button -->
-      <button type="submit" onclick="submitGameData()">Submit Game</button>
-  </section>
-  
+        <h2>Register a New Deck</h2>
 
+        <label for="playerName">Player Name:</label>
+        <input type="text" id="playerName" placeholder="Enter player name" required>
 
+        <label for="deckName">Deck Name:</label>
+        <input type="text" id="deckName" placeholder="Enter deck name" required>
 
-
-
-
-
+        <button onclick="registerDeck()">Register Deck</button>
+        
+        <p id="responseMessage"></p>
+    </section>
 
 
 
@@ -101,7 +73,7 @@
 
 
   <!-- SCRIPT LINK -->
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='scriptregister.js') }}"></script>
 
 
 
