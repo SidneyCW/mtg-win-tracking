@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Decks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <section class="container">
+            <ul class="menu">
+                <li class="menu-list"><a href="{{ url_for('home') }}" class="menu-link">Home</a></li>
+                <li class="menu-list"><a href="{{ url_for('register') }}" class="menu-link">Register Decks</a></li>
+            </ul>
+        </section>
+    </nav>
+
+    <section class="player-section">
+        <h2>Register a New Deck</h2>
+
+        <label for="playerName">Player Name:</label>
+        <input type="text" id="playerName" placeholder="Enter player name" required>
+
+        <label for="deckName">Deck Name:</label>
+        <input type="text" id="deckName" placeholder="Enter deck name" required>
+
+        <button onclick="registerDeck()">Register Deck</button>
+        
+        <p id="responseMessage"></p>
+    </section>
+
+    <script src="{{ url_for('static', filename='scriptregister.js') }}"></script>
+</body>
+</html>

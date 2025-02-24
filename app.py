@@ -26,6 +26,17 @@ def override_url_for():
 def home():
     return render_template('Main.html')
 
+# Register Deck Page
+@app.route("/")
+def register_decks():
+    return render_template("register_deck.html")
+
+
+
+
+
+
+
 # API to start a new game
 
 @app.route('/start_game', methods=['POST'])
@@ -93,6 +104,58 @@ def get_decks():
 
     return jsonify({"decks": decks})
 
+@app.route("/register_deck", methods=["POST"])
+def register_deck():
+    try:
+        data = request.get_json()
+        player_name = data.get("player")
+        deck_name = data.get("deck")
+
+        if not player_name or not deck_name:
+            return jsonify({"error": "Player name and deck name are required"}), 400
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Ensure the player exists
+        init_player(player_name)
+
+        # Check if the deck already exists for the player
+        cursor.execute(
+            "SELECT * FROM player_decks WHERE player_name = %s AND deck = %s",
+            (player_name, deck_name),
+        )
+        existing_deck = cursor.fetchone()
+
+        if existing_deck:
+            return jsonify({"error": "Deck already exists for this player"}), 409
+
+        # Insert new deck for the player
+        cursor.execute(
+            "INSERT INTO player_decks (player_name, deck, wins, games_played) VALUES (%s, %s, 0, 0)",
+            (player_name, deck_name),
+        )
+        conn.commit()
+        conn.close()
+
+        return jsonify({"message": "Deck registered successfully!"}), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Run the app on Raspberry Pi
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
+
