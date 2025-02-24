@@ -1,21 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <a href="Main.html"></a>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register Decks</title>
+    <title>Register</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
+  <!-- BACKGROUND -->
+
+    <div id="particles-js">
+    </div>
+    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+
+
+
+  <!-- NAVBAR -->
     <nav class="navbar">
-        <section class="container">
-            <ul class="menu">
-                <li class="menu-list"><a href="{{ url_for('home') }}" class="menu-link">Home</a></li>
-                <li class="menu-list"><a href="{{ url_for('register') }}" class="menu-link">Register Decks</a></li>
-            </ul>
-        </section>
+     
+    <section class="container">
+      <div class="logo">
+          <img src="{{ url_for('static', filename='images/headerlogo.png') }}" alt=>
+      </div>
+      
+    
+      <ul class="menu">
+        <li class="menu-list">
+        <a  class="menu-link" href="{{ url_for('home') }}">Home</a>
+        </li>
+         <li class="menu-list">
+        <a  class="menu-link" href="{{ url_for('register_decks')}}">Register</a>
+        </li>
+        <li class="menu-list">
+          <a  class="menu-link" href="{{ url_for('vaults')}}">Vault</a>
+          </li>
+        <li class="menu-list">
+          <a  class="menu-link">Search</a>
+          </li>
+      </ul>
+    
+      </section>
     </nav>
+
+
+
+
 
     <section class="player-section">
         <h2>Register a New Deck</h2>
@@ -31,6 +65,33 @@
         <p id="responseMessage"></p>
     </section>
 
+
+
+
+
+
+
+
+  <!-- SCRIPT LINK -->
     <script src="{{ url_for('static', filename='scriptregister.js') }}"></script>
+
+
+
+    <script>
+      console.log("Script is running!");
+   </script>
+
+
+
+   <script>
+    console.log("Checking if particles.js is loading...");
+    if (typeof particlesJS === "undefined") {
+        console.error("particles.js not loaded");
+    } else {
+        console.log("particles.js loaded");
+    }
+  </script>
+
+  
 </body>
 </html>

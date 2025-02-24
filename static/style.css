@@ -106,6 +106,7 @@ a {
   width: calc(100% / 5);
   border-radius: 5px;
   transition: color 0.3s ease;
+  cursor: pointer;
 }
 
 .menu-link:hover {
@@ -205,6 +206,98 @@ a {
 
 
 
+/* General styling for dropdowns */
+select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 2px solid #555;
+  background-color: #2c2c2c; /* Dark modern background */
+  color: white;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+select:hover {
+  border-color: #424242;
+  background-color: #2c2c2c;
+}
+
+/* Focus effect (when clicked) */
+select:focus {
+  border-color: #292929;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.6);
+}
+
+/* Change dropdown background and text color */
+select option {
+  background: #2c2c2c;  /* Dark background */
+  color: white;         /* White text */
+}
+
+/* Try forcing a different highlight color (some browsers ignore this) */
+select option:checked {
+  background: #4d4d4d !important; /* Change blue to custom color */
+  color: white;
+}
+
+
+
+
+
+.player-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.player-section th, .player-section td {
+  padding: 10px;
+  border-bottom: 1px solid white;
+  text-align: left;
+  color: white;
+}
+
+.player-section th {
+  background-color: #333;
+}
+
+.deck-hover {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-icon {
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 8px;
+}
+
+.deck-dropdown {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  min-width: 200px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.deck-hover:hover .deck-dropdown {
+  display: block;
+}
+
+
+
 
 
 
@@ -230,6 +323,7 @@ canvas {
   background-size: cover;
   background-position: 50% 50%;
   z-index: -1;
+  height: 100vh;
 } /* ---- stats.js ---- */
 .count-particles {
   background: #000022;

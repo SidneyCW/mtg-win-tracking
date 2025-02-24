@@ -31,22 +31,23 @@
     
       <ul class="menu">
         <li class="menu-list">
-        <a href="" class="menu-link" href="{{ url_for('home') }}">Home</a>
+        <a  class="menu-link" href="{{ url_for('home') }}">Home</a>
         </li>
          <li class="menu-list">
-        <a href="" class="menu-link" >Register Players</a>
+        <a  class="menu-link" href="{{ url_for('register_decks')}}">Register</a>
         </li>
-         <li class="menu-list">
-        <a href="" class="menu-link" href="{{ url_for('register_decks') }}">Register Decks</a>
-        </li>
-         <li class="menu-list">
-        <a href="" class="menu-link">Vault</a>
-        </li>
+        <li class="menu-list">
+          <a  class="menu-link" href="{{ url_for('vaults')}}">Vault</a>
+          </li>
+        <li class="menu-list">
+          <a  class="menu-link">Search</a>
+          </li>
       </ul>
     
       </section>
     </nav>
       
+
 
 
 
@@ -101,9 +102,15 @@
 
   <!-- SCRIPT LINK -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+
+
     <script>
       console.log("Script is running!");
    </script>
+
+
+
    <script>
     console.log("Checking if particles.js is loading...");
     if (typeof particlesJS === "undefined") {

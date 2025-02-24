@@ -27,9 +27,16 @@ def home():
     return render_template('Main.html')
 
 # Register Deck Page
-@app.route("/")
+@app.route("/register_decks")
 def register_decks():
+    print("Serving register_deck.html")  # Debugging step
     return render_template("register_deck.html")
+
+# Vault Page
+@app.route("/vaults")
+def vaults():
+    print("Serving vault.html")  # Debugging step
+    return render_template("vault.html")
 
 
 
@@ -96,9 +103,18 @@ def get_players():
 
 @app.route("/get_decks", methods=["GET"])
 def get_decks():
+    player_name = request.args.get("player")  # Get player from URL query
+
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT DISTINCT deck FROM player_decks")
+
+    if player_name:
+        # ✅ Fetch decks only for this player
+        cursor.execute("SELECT deck FROM player_decks WHERE player_name = %s", (player_name,))
+    else:
+        # Return all decks (default behavior)
+        cursor.execute("SELECT DISTINCT deck FROM player_decks")
+
     decks = [row["deck"] for row in cursor.fetchall()]
     conn.close()
 
@@ -142,6 +158,35 @@ def register_deck():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/get_player_decks", methods=["GET"])
+def get_player_decks():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        cursor.execute("""
+            SELECT player_name, deck, wins FROM player_decks ORDER BY wins DESC
+        """)
+        
+        decks = cursor.fetchall()
+        conn.close()
+
+        if not decks:
+            return jsonify([])  # Return empty list if no data
+        
+        return jsonify(decks)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/get_wins", methods=["GET"])
+def get_wins():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT name, wins FROM users ORDER BY wins DESC")
+    players = cursor.fetchall()
+    conn.close()
+    return jsonify(players)
 
 
 
