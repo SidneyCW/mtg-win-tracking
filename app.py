@@ -35,7 +35,7 @@ def register_decks():
 # Vault Page
 @app.route("/vaults")
 def vaults():
-    print("Serving vault.html")  # Debugging step
+    print("Serving Vault.html")  # Debugging step
     return render_template("Vault.html")
 
 
