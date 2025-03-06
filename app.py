@@ -41,9 +41,6 @@ def vaults():
 
 
 
-
-
-
 # API to start a new game
 
 @app.route('/start_game', methods=['POST'])
@@ -179,6 +176,28 @@ def get_player_decks():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@app.route("/get_deck_elo", methods=["GET"])
+def get_deck_elo():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        cursor.execute("""
+            SELECT player_name, deck, elo FROM player_decks ORDER BY elo DESC
+        """)
+        
+        decks_elo = cursor.fetchall()
+        conn.close()
+
+        if not decks_elo:
+            return jsonify([])  # Return empty list if no data
+        
+        return jsonify(decks)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 @app.route("/get_wins", methods=["GET"])
 def get_wins():
     conn = get_db_connection()
@@ -188,14 +207,14 @@ def get_wins():
     conn.close()
     return jsonify(players)
 
-
-
-
-
-
-
-
-
+@app.route("/get_player_elo", methods=["GET"])
+def get_player_elo():
+    conn = get_db_connection()
+    cursor = conn.cursor(distionary=True)
+    cursor.execute("SELECT name, elo FROM users ORDER BY elo DESC")
+    p_elos = cursor.fetchall()
+    conn.close()
+    return jsonify(p_elos)
 
 
 
