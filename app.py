@@ -170,7 +170,7 @@ def get_deck_elo():
             SELECT player_name, deck, elo FROM player_decks ORDER BY elo DESC
         """)
         
-        decks_elo = cursor.fetchall()
+        deck_elo = cursor.fetchall()
         conn.close()
 
         if not deck_elo:
