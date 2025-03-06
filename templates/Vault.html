@@ -54,7 +54,7 @@
             <thead>
                 <tr>
                     <th>Player</th>
-                    <th>Wins</th>
+                    <th>Elo</th>
                     <th>Decks</th>
                 </tr>
             </thead>
@@ -74,7 +74,7 @@
                 return response.json();
             })
             .then(playersData => {
-                console.log("Wins data received:", playersData);
+                console.log("Elo data received:", playersData);
         
                 // Insert wins first (so page still works even if decks fail)
                 const tableBody = document.querySelector("#winsTable tbody");
