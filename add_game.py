@@ -17,7 +17,7 @@ def calculate_elo_change(player_elo, deck_elo, opponent_elo, win, K=84):
         if elo_difference > 0:  # Defeating a stronger opponent
             K *= 2.1
         elif elo_difference < 0:  # Defeating a weaker opponent
-            K *= 1
+            K *= 1.5
     else:
         if elo_difference > 0:  # Losing to a stronger opponent
             K *= 0.4
