@@ -9,7 +9,6 @@ from init_new_player import init_player
 
 app = Flask(__name__)
 
-# File paths
 USER_DATA_PATH = "user_data/users"
 MATCH_DATA_PATH = "user_data/match_data"
 
@@ -17,42 +16,32 @@ MATCH_DATA_PATH = "user_data/match_data"
 def override_url_for():
     def hashed_url_for(endpoint, **values):
         if endpoint == 'static':
-            values['q'] = int(time.time())  # Adds a timestamp to force reload
+            values['q'] = int(time.time())
         return url_for(endpoint, **values)
     return dict(url_for=hashed_url_for)
 
-# Home page
 @app.route('/')
 def home():
     return render_template('Main.html')
 
-# Register Deck Page
 @app.route("/register_decks")
 def register_decks():
-    print("Serving register_deck.html")  # Debugging step
+    print("Serving register_deck.html")
     return render_template("register_deck.html")
 
-# Vault Page
 @app.route("/vaults")
 def vaults():
-    print("Serving Vault.html")  # Debugging step
+    print("Serving Vault.html")
     return render_template("Vault.html")
 
-
-
-
-
-
-
-# API to start a new game
 
 @app.route('/start_game', methods=['POST'])
 def start_game():
     try:
         data = request.get_json()
-        people = data['people']  # List of player names
-        decks = data['decks']  # List of corresponding decks
-        winner = data['winner']  # Name of the winner
+        people = data['people']
+        decks = data['decks']
+        winner = data['winner']
 
         if len(people) != len(decks):
             return jsonify({"error": "Mismatch between players and decks"}), 400
@@ -60,15 +49,12 @@ def start_game():
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Generate a unique match key
         match_key = gen_key(people)
 
-        # Insert match into the database
         cursor.execute("INSERT INTO matches (match_key, winner, play_num) VALUES (%s, %s, %s)",
                        (match_key, winner, len(people)))
         match_id = cursor.lastrowid
 
-        # Insert each player and their deck into match_players
         for i, person in enumerate(people):
             cursor.execute("INSERT INTO match_players (match_id, player_name, deck) VALUES (%s, %s, %s)",
                            (match_id, person, decks[i]))
@@ -103,16 +89,14 @@ def get_players():
 
 @app.route("/get_decks", methods=["GET"])
 def get_decks():
-    player_name = request.args.get("player")  # Get player from URL query
+    player_name = request.args.get("player")
 
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)
 
     if player_name:
-        # ✅ Fetch decks only for this player
         cursor.execute("SELECT deck FROM player_decks WHERE player_name = %s", (player_name,))
     else:
-        # Return all decks (default behavior)
         cursor.execute("SELECT DISTINCT deck FROM player_decks")
 
     decks = [row["deck"] for row in cursor.fetchall()]
@@ -133,10 +117,8 @@ def register_deck():
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Ensure the player exists
         init_player(player_name)
 
-        # Check if the deck already exists for the player
         cursor.execute(
             "SELECT * FROM player_decks WHERE player_name = %s AND deck = %s",
             (player_name, deck_name),
@@ -146,7 +128,6 @@ def register_deck():
         if existing_deck:
             return jsonify({"error": "Deck already exists for this player"}), 409
 
-        # Insert new deck for the player
         cursor.execute(
             "INSERT INTO player_decks (player_name, deck, wins, games_played) VALUES (%s, %s, 0, 0)",
             (player_name, deck_name),
@@ -172,12 +153,34 @@ def get_player_decks():
         conn.close()
 
         if not decks:
-            return jsonify([])  # Return empty list if no data
+            return jsonify([])
         
         return jsonify(decks)
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route("/get_deck_elo", methods=["GET"])
+def get_deck_elo():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+
+        cursor.execute("""
+            SELECT player_name, deck, elo FROM player_decks ORDER BY elo DESC
+        """)
+        
+        deck_elo = cursor.fetchall()
+        conn.close()
+
+        if not deck_elo:
+            return jsonify([]) 
+        
+        return jsonify(deck_elo)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route("/get_wins", methods=["GET"])
 def get_wins():
@@ -188,18 +191,16 @@ def get_wins():
     conn.close()
     return jsonify(players)
 
+@app.route("/get_player_elo", methods=["GET"])
+def get_player_elo():
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("SELECT name, elo FROM users ORDER BY elo DESC")
+    p_elos = cursor.fetchall()
+    conn.close()
+    return jsonify(p_elos)
 
 
-
-
-
-
-
-
-
-
-
-# Run the app on Raspberry Pi
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
 
