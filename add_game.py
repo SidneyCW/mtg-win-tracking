@@ -1,7 +1,7 @@
 from db_util import get_db_connection
 from init_new_player import init_player
 
-def calculate_elo_change(player_elo, deck_elo, opponent_elo, win, K=84):
+def calculate_elo_change(player_elo, deck_elo, opponent_elo, win, K=50):
     player_elo = float(player_elo)
     deck_elo = float(deck_elo)
     opponent_elo = float(opponent_elo)
