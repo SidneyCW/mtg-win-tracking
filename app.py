@@ -210,7 +210,7 @@ def get_wins():
 @app.route("/get_player_elo", methods=["GET"])
 def get_player_elo():
     conn = get_db_connection()
-    cursor = conn.cursor(distionary=True)
+    cursor = conn.cursor(dictionary=True)
     cursor.execute("SELECT name, elo FROM users ORDER BY elo DESC")
     p_elos = cursor.fetchall()
     conn.close()
