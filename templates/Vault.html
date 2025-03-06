@@ -68,9 +68,9 @@
         document.addEventListener("DOMContentLoaded", function() {
             console.log("Fetching player wins...");
         
-            fetch('/get_wins')
+            fetch('/get_player_elo')
             .then(response => {
-                if (!response.ok) throw new Error("Failed to fetch wins");
+                if (!response.ok) throw new Error("Failed to fetch elo");
                 return response.json();
             })
             .then(playersData => {
@@ -97,7 +97,7 @@
                     tableBody.appendChild(row);
                 });
         
-                return fetch('/get_player_decks'); // Fetch decks AFTER wins
+                return fetch('/get_deck_elo'); // Fetch decks AFTER wins
             })
             .then(response => {
                 if (!response.ok) throw new Error("Failed to fetch decks");
