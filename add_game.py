@@ -1,27 +1,28 @@
 from db_util import get_db_connection
 from init_new_player import init_player
 
-def calculate_elo_change(player_elo, deck_elo, opponent_elo, win, K=48):
+def calculate_elo_change(player_elo, deck_elo, opponent_elo, win, K=84):
     player_elo = float(player_elo)
     deck_elo = float(deck_elo)
     opponent_elo = float(opponent_elo)
 
-    combined_elo = (player_elo + deck_elo) / 2  # Average of player and deck Elo
-    expected_score = 1 / (1 + 10 ** ((opponent_elo - combined_elo) / 400))
+    # Make deck Elo have more weight (e.g., 70% deck, 30% player)
+    combined_elo = (0.2 * player_elo) + (0.8 * deck_elo)
+    expected_score = 1 / (1 + 10 ** ((opponent_elo - combined_elo) / 300))  # Increase impact
     actual_score = 1 if win else 0
     
     # Adjust K based on Elo difference
     elo_difference = opponent_elo - combined_elo
     if win:
         if elo_difference > 0:  # Defeating a stronger opponent
-            K *= 1.2
+            K *= 1.5
         elif elo_difference < 0:  # Defeating a weaker opponent
-            K *= 0.8
+            K *= 0.7
     else:
         if elo_difference > 0:  # Losing to a stronger opponent
-            K *= 0.6
+            K *= 0.7
         elif elo_difference < 0:  # Losing to a weaker opponent
-            K *= 1.4
+            K *= 1.5  # Punish losses to weaker opponents more
     
     new_elo = round(player_elo + K * (actual_score - expected_score))
     new_deck_elo = round(deck_elo + K * (actual_score - expected_score))
