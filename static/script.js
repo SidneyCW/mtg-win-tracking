@@ -300,3 +300,12 @@ function initPlexusBackground() {
   };
   requestAnimationFrame(update);
 }
+
+if (window.innerWidth < 500) {
+    particlesJS("particles-js", {
+        particles: {
+            number: { value: 30 }, // Reduce number of particles
+            move: { speed: 1.5 }   // Slow down movement
+        }
+    });
+}
