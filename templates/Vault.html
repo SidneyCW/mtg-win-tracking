@@ -68,24 +68,18 @@
         document.addEventListener("DOMContentLoaded", function() {
             console.log("Fetching player wins...");
         
-            fetch('/get_player_elo')
-            .then(response => {
-                if (!response.ok) throw new Error("Failed to fetch elo");
-                return response.json();
-            })
-            .then(playersData => {
-                console.log("Elo data received:", playersData);
+        fetch('/get_player_elo')
+        .then(response => response.json())
+        .then(playersData => {
+            const tableBody = document.querySelector("#winsTable tbody");
+            tableBody.innerHTML = "";
+
+            playersData.forEach(player => {
+                const row = document.createElement("tr");
         
-                // Insert wins first (so page still works even if decks fail)
-                const tableBody = document.querySelector("#winsTable tbody");
-                tableBody.innerHTML = "";
-        
-                playersData.forEach(player => {
-                    const row = document.createElement("tr");
-        
-                    row.innerHTML = `
-                        <td>${player.name}</td>
-                        <td>${player.wins}</td>
+                row.innerHTML = `
+                    <td>${player.name || "Unknown"}</td>
+                    <td>${player.elo !== null ? player.elo : "N/A"}</td>  <!-- ✅ Fix: Handle missing Elo values -->
                         <td>
                             <div class="deck-hover">
                                 <span class="hover-icon">📜</span>
@@ -93,12 +87,13 @@
                             </div>
                         </td>
                     `;
-        
+
                     tableBody.appendChild(row);
                 });
-        
-                return fetch('/get_deck_elo'); // Fetch decks AFTER wins
+
+                return fetch('/get_deck_elo');
             })
+
             .then(response => {
                 if (!response.ok) throw new Error("Failed to fetch decks");
                 return response.json();
