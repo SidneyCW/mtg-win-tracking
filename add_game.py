@@ -15,14 +15,14 @@ def calculate_elo_change(player_elo, deck_elo, opponent_elo, win, K=84):
     elo_difference = opponent_elo - combined_elo
     if win:
         if elo_difference > 0:  # Defeating a stronger opponent
-            K *= 1.5
+            K *= 1.8
         elif elo_difference < 0:  # Defeating a weaker opponent
-            K *= 0.7
+            K *= 0.8
     else:
         if elo_difference > 0:  # Losing to a stronger opponent
-            K *= 0.7
+            K *= 0.6
         elif elo_difference < 0:  # Losing to a weaker opponent
-            K *= 1.5  # Punish losses to weaker opponents more
+            K *= 1.3  # Punish losses to weaker opponents more
     
     new_elo = round(player_elo + K * (actual_score - expected_score))
     new_deck_elo = round(deck_elo + K * (actual_score - expected_score))
