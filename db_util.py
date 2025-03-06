@@ -21,7 +21,8 @@ def init_db():
             id INT AUTO_INCREMENT PRIMARY KEY,
             name VARCHAR(50) UNIQUE NOT NULL COLLATE utf8_general_ci,
             wins INT DEFAULT 0,
-            losses INT DEFAULT 0
+            losses INT DEFAULT 0,
+	    elo INT DEFAULT 500
         )
     ''')
 
@@ -50,10 +51,26 @@ def init_db():
             deck VARCHAR(50) COLLATE utf8_general_ci,
             wins INT DEFAULT 0,
             games_played INT DEFAULT 0,
+	    elo INT DEFAULT 500,
             UNIQUE(player_name, deck),
             FOREIGN KEY (player_name) REFERENCES users(name) ON DELETE CASCADE
         )
     ''')
+
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS elo_history (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            player_name VARCHAR(50) COLLATE utf8mb4_general_ci,
+            deck VARCHAR(50) COLLATE utf8mb4_general_ci,
+            old_elo INT,
+            new_elo INT,
+            match_id INT,
+            FOREIGN KEY (player_name) REFERENCES users(name) ON DELETE CASCADE,
+            FOREIGN KEY (deck) REFERENCES player_decks(deck) ON DELETE CASCADE,
+            FOREIGN KEY (match_id) REFERENCES matches(id) ON DELETE CASCADE
+        )
+    ''')
+
 
     conn.commit()
     conn.close()
