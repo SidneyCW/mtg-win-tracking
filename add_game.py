@@ -56,7 +56,7 @@ def update_player_stats(person, deck, key, win=False):
 
     # Get opponent's average Elo
     cursor.execute("SELECT AVG((elo + (SELECT elo FROM player_decks WHERE player_decks.player_name = users.name LIMIT 1)) / 2) as avg_elo FROM users WHERE name != %s", (person,))
-    opponent_elo = cursor.fetchone()["avg_elo"] or 1000
+    opponent_elo = cursor.fetchone()["avg_elo"] or 500
     
     # Calculate new Elo ratings
     new_player_elo, new_deck_elo = calculate_elo_change(player["elo"], player_deck["elo"], opponent_elo, win)
