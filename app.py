@@ -200,7 +200,6 @@ def get_player_elo():
     conn.close()
     return jsonify(p_elos)
 
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
 
