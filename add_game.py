@@ -38,7 +38,7 @@ def update_player_stats(person, deck, key, win=False):
     player = cursor.fetchone()
 
     if not player:
-        cursor.execute("INSERT INTO users (name, wins, losses, elo) VALUES (%s, 0, 0, 1000)", (person,))
+        cursor.execute("INSERT INTO users (name, wins, losses, elo) VALUES (%s, 0, 0, 500)", (person,))
         conn.commit()
         cursor.execute("SELECT * FROM users WHERE name = %s", (person,))
         player = cursor.fetchone()
@@ -48,7 +48,7 @@ def update_player_stats(person, deck, key, win=False):
     player_deck = cursor.fetchone()
 
     if not player_deck:
-        cursor.execute("INSERT INTO player_decks (player_name, deck, wins, games_played, elo) VALUES (%s, %s, 0, 0, 1000)", 
+        cursor.execute("INSERT INTO player_decks (player_name, deck, wins, games_played, elo) VALUES (%s, %s, 0, 0, 500)", 
                        (person, deck))
         conn.commit()
         cursor.execute("SELECT * FROM player_decks WHERE player_name = %s AND deck = %s", (person, deck))
