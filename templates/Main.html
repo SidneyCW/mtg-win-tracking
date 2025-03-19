@@ -9,48 +9,27 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
+
+<video autoplay loop muted id="bg-video">
+  <source src="{{ url_for('static', filename='videos/mystical.mp4') }}" type="video/mp4">
+</video>
+
+
 <body>
-
-  <!-- BACKGROUND -->
-
-    <div id="particles-js">
-    </div>
-    <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
-
-
-
   <!-- NAVBAR -->
+  <header class="header-container">
     <nav class="navbar">
-     
-    <section class="container">
-      <div class="logo">
-          <img src="{{ url_for('static', filename='images/headerlogo.png') }}" alt=>
-      </div>
-      
-    
-      <ul class="menu">
-        <li class="menu-list">
-        <a  class="menu-link" href="{{ url_for('home') }}">Home</a>
-        </li>
-         <li class="menu-list">
-        <a  class="menu-link" href="{{ url_for('register_decks')}}">Register</a>
-        </li>
-        <li class="menu-list">
-          <a  class="menu-link" href="{{ url_for('vaults')}}">Vault</a>
-          </li>
-        <li class="menu-list">
-          <a  class="menu-link">Search</a>
-          </li>
-      </ul>
-    
-      </section>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/headerlogo.png') }}" alt="Logo">
+        </div>
+        <ul class="menu">
+            <li class="menu-list"><a class="menu-link" href="{{ url_for('home') }}">Home</a></li>
+            <li class="menu-list"><a class="menu-link" href="{{ url_for('register_decks')}}">Register</a></li>
+            <li class="menu-list"><a class="menu-link" href="{{ url_for('vaults')}}">Vault</a></li>
+            <li class="menu-list"><a class="menu-link">Search</a></li>
+        </ul>
     </nav>
-      
-
-
-
-
+  </header>
 
     <!-- PLAYER WINNER SECTION -->
 
@@ -84,16 +63,6 @@
       <!-- Submit Button -->
       <button type="submit" onclick="submitGameData()">Submit Game</button>
   </section>
-  
-
-
-
-
-
-
-
-
-
 
 
 
