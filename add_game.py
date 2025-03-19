@@ -37,8 +37,9 @@ def update_player_stats(person, deck, key, win=False):
     cursor.execute("SELECT * FROM users WHERE name = %s", (person,))
     player = cursor.fetchone()
 
+    # If player doesn't exist initialize player values
     if not player:
-        cursor.execute("INSERT INTO users (name, wins, losses, elo) VALUES (%s, 0, 0, 1000)", (person,))
+        cursor.execute("INSERT INTO users (name, wins, losses, elo) VALUES (%s, 0, 0, 500)", (person,))
         conn.commit()
         cursor.execute("SELECT * FROM users WHERE name = %s", (person,))
         player = cursor.fetchone()
@@ -47,8 +48,9 @@ def update_player_stats(person, deck, key, win=False):
     cursor.execute("SELECT * FROM player_decks WHERE player_name = %s AND deck = %s", (person, deck))
     player_deck = cursor.fetchone()
 
+    #If deck doesn't exist initialize deck values
     if not player_deck:
-        cursor.execute("INSERT INTO player_decks (player_name, deck, wins, games_played, elo) VALUES (%s, %s, 0, 0, 1000)", 
+        cursor.execute("INSERT INTO player_decks (player_name, deck, wins, games_played, elo) VALUES (%s, %s, 0, 0, 500)", 
                        (person, deck))
         conn.commit()
         cursor.execute("SELECT * FROM player_decks WHERE player_name = %s AND deck = %s", (person, deck))
@@ -56,7 +58,7 @@ def update_player_stats(person, deck, key, win=False):
 
     # Get opponent's average Elo
     cursor.execute("SELECT AVG((elo + (SELECT elo FROM player_decks WHERE player_decks.player_name = users.name LIMIT 1)) / 2) as avg_elo FROM users WHERE name != %s", (person,))
-    opponent_elo = cursor.fetchone()["avg_elo"] or 1000
+    opponent_elo = cursor.fetchone()["avg_elo"] or 500
     
     # Calculate new Elo ratings
     new_player_elo, new_deck_elo = calculate_elo_change(player["elo"], player_deck["elo"], opponent_elo, win)

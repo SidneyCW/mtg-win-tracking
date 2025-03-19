@@ -200,6 +200,35 @@ def get_player_elo():
     conn.close()
     return jsonify(p_elos)
 
+@app.route("/search_player", methods=["GET"])
+def search_player():
+    #Request player name from client
+    player_name = request.args.get("player")
+
+    #Check to see if request exists
+    if not player_name:
+        return jsonify({"error": "Player name is required"}), 400
+    
+    conn = get_db_connection()
+    cursor = conn.cursor(dictionary=True)
+    
+    #Send sql request to get player data
+    cursor.execute("SELECT * FROM users WHERE name = %s", (player_name,))
+    player = cursor.fetchone()
+    
+    if not player:
+        conn.close()
+        return jsonify({"error": "Player not found"}), 404
+    
+    #Send sql request to get deck data
+    cursor.execute("SELECT deck, wins, elo FROM player_decks WHERE player_name = %s", (player_name,))
+    decks = cursor.fetchall()
+    conn.close()
+
+    player["decks"] = decks #Store deck information to player data
+
+    #Return sql data as usable json file
+    return jsonify(player)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
