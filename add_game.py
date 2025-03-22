@@ -1,40 +1,38 @@
 from db_util import get_db_connection
 from init_new_player import init_player
 
-def calculate_elo_change(player_elo, deck_elo, opponents_elo, win, K=50):
+def calculate_elo_change(player_elo, deck_elo, opponents_elo, win, K=60):
     player_elo = float(player_elo)
     deck_elo = float(deck_elo)
     avg_opponent_elo = sum(opponents_elo) / len(opponents_elo)
 
-    # Weight deck more heavily (EDH often revolves around deck strength)
     combined_elo = 0.3 * player_elo + 0.7 * deck_elo
-
     expected_score = 1 / (1 + 10 ** ((avg_opponent_elo - combined_elo) / 400))
     actual_score = 1 if win else 0
 
-    # Scale K-factor based on number of opponents
+    # Base K tuning (more weight for wins, lighter losses)
     num_opponents = len(opponents_elo)
-    k_multiplier = 1 + (num_opponents - 1) * 0.25
-    K *= k_multiplier
+    K *= (1 + (num_opponents - 1) * 0.35)
 
-    # Adjust based on underdog/favorite
-    elo_difference = avg_opponent_elo - combined_elo
     if win:
-        if elo_difference > 0:
-            K *= 1.5
-        elif elo_difference < 0:
-            K *= 0.8
+        K *= 2.2
+        if avg_opponent_elo > combined_elo:
+            K *= 1.2
     else:
-        if elo_difference < 0:
-            K *= 1.5
-        else:
-            K *= 0.5
+        K *= 0.4
+        if avg_opponent_elo < combined_elo:
+            K *= 0.8
 
     delta = K * (actual_score - expected_score)
+
+    bonus = min(5 * (1 + len(opponents_elo)), 20)
+    delta += bonus
+
     new_player_elo = round(player_elo + delta)
     new_deck_elo = round(deck_elo + delta)
 
     return new_player_elo, new_deck_elo
+
 
 
 
