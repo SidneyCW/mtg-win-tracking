@@ -37,6 +37,7 @@ def calculate_elo_change(player_elo, deck_elo, opponents_elo, win, K=50):
     return new_player_elo, new_deck_elo
 
 
+
 def update_player_stats(person, deck, key, win=False):
     conn = get_db_connection()
     cursor = conn.cursor(dictionary=True)

@@ -64,7 +64,7 @@ def start_game():
         cursor.execute("SELECT name, elo FROM users")
         user_elos = {row[0]: row[1] for row in cursor.fetchall()}
 
-        cursor.execute("SELECT player_name, deck_name, elo FROM decks")
+        cursor.execute("SELECT player_name, deck_name, elo FROM player_decks")
         deck_elos = {(row[0], row[1]): row[2] for row in cursor.fetchall()}
 
         # Elo logic per player
@@ -92,7 +92,7 @@ def start_game():
                 cursor.execute("UPDATE users SET losses = losses + 1, elo = %s WHERE name = %s", (new_player_elo, person))
 
             # Update decks table
-            cursor.execute("UPDATE decks SET elo = %s WHERE player_name = %s AND deck_name = %s",
+            cursor.execute("UPDATE player_decks SET elo = %s WHERE player_name = %s AND deck_name = %s",
                            (new_deck_elo, person, deck))
 
             # Log match entry

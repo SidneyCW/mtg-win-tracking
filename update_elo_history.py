@@ -40,7 +40,7 @@ def update_all_elos():
         cursor.execute("SELECT name, elo FROM users")
         user_elos = {row['name']: row['elo'] for row in cursor.fetchall()}
 
-        cursor.execute("SELECT player_name, deck_name, elo FROM decks")
+        cursor.execute("SELECT player_name, deck_name, elo FROM player_decks")
         deck_elos = {(row['player_name'], row['deck_name']): row['elo'] for row in cursor.fetchall()}
 
         for i, person in enumerate(people):
@@ -69,7 +69,7 @@ def update_all_elos():
             else:
                 cursor.execute("UPDATE users SET losses = losses + 1, elo = %s WHERE name = %s", (new_player_elo, person))
 
-            cursor.execute("UPDATE decks SET elo = %s WHERE player_name = %s AND deck_name = %s",
+            cursor.execute("UPDATE player_decks SET elo = %s WHERE player_name = %s AND deck_name = %s",
                            (new_deck_elo, person, deck))
 
             cursor.execute("UPDATE match_players SET elo = %s, deck_elo = %s WHERE match_id = %s AND player_name = %s",
