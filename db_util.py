@@ -74,3 +74,8 @@ def init_db():
 
     conn.commit()
     conn.close()
+
+#runs command if script is run on its own
+if __name__ == "__main__":
+    init_db()
+    print("Databases initialized successfully!")
