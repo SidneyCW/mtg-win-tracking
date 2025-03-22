@@ -25,9 +25,9 @@ def init_player(name):
 def init_deck(player_name, deck_name):
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM player_decks WHERE player_name = %s AND deck_name = %s", (player_name, deck_name))
+    cursor.execute("SELECT * FROM player_decks WHERE player_name = %s AND deck = %s", (player_name, deck_name))
     if not cursor.fetchone():
-        cursor.execute("INSERT INTO player_decks (player_name, deck_name, elo) VALUES (%s, %s, %s)", (player_name, deck_name, 1000))
+        cursor.execute("INSERT INTO player_decks (player_name, deck, elo) VALUES (%s, %s, %s)", (player_name, deck_name, 1000))
         conn.commit()
     conn.close()
 
