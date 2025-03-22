@@ -22,7 +22,7 @@ def init_db():
             name VARCHAR(50) UNIQUE NOT NULL COLLATE utf8_general_ci,
             wins INT DEFAULT 0,
             losses INT DEFAULT 0,
-	    elo INT DEFAULT 500
+	    elo INT DEFAULT 1000
         )
     ''')
 
@@ -51,7 +51,7 @@ def init_db():
             deck VARCHAR(50) COLLATE utf8_general_ci,
             wins INT DEFAULT 0,
             games_played INT DEFAULT 0,
-	    elo INT DEFAULT 500,
+	        elo INT DEFAULT 1000,
             UNIQUE(player_name, deck),
             FOREIGN KEY (player_name) REFERENCES users(name) ON DELETE CASCADE
         )

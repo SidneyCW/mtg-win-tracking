@@ -16,10 +16,19 @@ def init_player(name):
         return player  # Return existing player data
 
     # Insert new player with default stats
-    cursor.execute("INSERT INTO users (name, wins, losses) VALUES (%s, 0, 0)", (name,))
+    cursor.execute("INSERT INTO users (name, wins, losses, elo) VALUES (%s, 0, 0, 1000)", (name,))
     conn.commit()
     conn.close()
 
     return {"name": name, "wins": 0, "losses": 0}  # Return new player data
 
+def init_deck(player_name, deck_name):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM decks WHERE player_name = %s AND deck_name = %s", (player_name, deck_name))
+    deck = cursor.fetchone()
+    if not deck:
+        cursor.execute("INSERT INTO decks (player_name, deck_name, elo) VALUES (%s, %s, %s)", (player_name, deck_name, 1000))
+        conn.commit()
+    conn.close()
 
