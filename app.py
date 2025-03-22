@@ -34,7 +34,6 @@ def vaults():
     print("Serving Vault.html")
     return render_template("Vault.html")
 
-
 @app.route('/start_game', methods=['POST'])
 def start_game():
     try:
@@ -49,57 +48,46 @@ def start_game():
         conn = get_db_connection()
         cursor = conn.cursor()
 
-        # Generate match key and insert match
         match_key = gen_key(people)
         cursor.execute("INSERT INTO matches (match_key, winner, play_num) VALUES (%s, %s, %s)",
                        (match_key, winner, len(people)))
         match_id = cursor.lastrowid
 
-        # Initialize all players and decks
         for person, deck in zip(people, decks):
             init_player(person)
             init_deck(person, deck)
 
-        # Fetch user and deck Elos
         cursor.execute("SELECT name, elo FROM users")
         user_elos = {row[0]: row[1] for row in cursor.fetchall()}
 
-        cursor.execute("SELECT player_name, deck_name, elo FROM player_decks")
+        cursor.execute("SELECT player_name, deck, elo FROM player_decks")
         deck_elos = {(row[0], row[1]): row[2] for row in cursor.fetchall()}
 
-        # Elo logic per player
         for i, person in enumerate(people):
             deck = decks[i]
             player_elo = user_elos.get(person, 1000)
             deck_elo = deck_elos.get((person, deck), 1000)
 
-            # Opponent Elos
             opponents_elo = []
             for j, opp in enumerate(people):
                 if i != j:
                     opp_elo = user_elos.get(opp, 1000)
                     opp_deck_elo = deck_elos.get((opp, decks[j]), 1000)
-                    opp_combined = 0.3 * opp_elo + 0.7 * opp_deck_elo
-                    opponents_elo.append(opp_combined)
+                    opponents_elo.append(0.3 * opp_elo + 0.7 * opp_deck_elo)
 
             win_flag = (person == winner)
             new_player_elo, new_deck_elo = calculate_elo_change(player_elo, deck_elo, opponents_elo, win_flag)
 
-            # Update users table
             if win_flag:
                 cursor.execute("UPDATE users SET wins = wins + 1, elo = %s WHERE name = %s", (new_player_elo, person))
             else:
                 cursor.execute("UPDATE users SET losses = losses + 1, elo = %s WHERE name = %s", (new_player_elo, person))
 
-            # Update decks table
-            cursor.execute("UPDATE player_decks SET elo = %s WHERE player_name = %s AND deck_name = %s",
+            cursor.execute("UPDATE player_decks SET elo = %s WHERE player_name = %s AND deck = %s",
                            (new_deck_elo, person, deck))
 
-            # Log match entry
-            cursor.execute(
-                "INSERT INTO match_players (match_id, player_name, deck, elo, deck_elo) VALUES (%s, %s, %s, %s, %s)",
-                (match_id, person, deck, new_player_elo, new_deck_elo)
-            )
+            cursor.execute("INSERT INTO match_players (match_id, player_name, deck, elo, deck_elo) VALUES (%s, %s, %s, %s, %s)",
+                           (match_id, person, deck, new_player_elo, new_deck_elo))
 
         conn.commit()
         conn.close()
