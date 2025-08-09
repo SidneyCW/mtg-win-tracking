@@ -5,7 +5,7 @@ from add_game import update_player_stats
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'flaskuser',
-    'password': 'DrXrus_5425',
+    'password': '',
     'database': 'mtg_tracker'
 }
 
