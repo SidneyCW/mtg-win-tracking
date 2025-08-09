@@ -3,14 +3,10 @@ import mysql.connector
 from flask import Flask, request, jsonify, render_template, url_for
 import json
 import os
-from add_game import update_player_stats, gen_key
-from db_util import get_db_connection
-from init_new_player import init_player
+from utils.db_utils import get_db_connection, gen_key, update_player_stats
+from utils.init_new_player import init_player
 
 app = Flask(__name__)
-
-USER_DATA_PATH = "user_data/users"
-MATCH_DATA_PATH = "user_data/match_data"
 
 @app.context_processor
 def override_url_for():

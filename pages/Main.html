@@ -2,15 +2,15 @@
 <html lang="en">
 
 <head>
-    <a href="Main.html"></a>
+    <a href="/pages/Main.html"></a>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 
 
-<img src="{{ url_for('static', filename='images/mystical.gif') }}" id="bg-gif" alt="Background GIF">
+<img src="/static/images/mystical.gif" id="bg-gif" alt="Background GIF">
 
 
 
@@ -19,7 +19,7 @@
   <header class="header-container">
     <nav class="navbar">
         <div class="logo">
-            <img src="{{ url_for('static', filename='images/headerlogo.png') }}" alt="Logo">
+            <img src="/static/images/headerlogo.png" alt="Logo">
         </div>
         <ul class="menu">
             <li class="menu-list"><a class="menu-link" href="{{ url_for('home') }}">Home</a></li>
@@ -63,21 +63,12 @@
       <button type="submit" onclick="submitGameData()">Submit Game</button>
   </section>
 
-
-
-
-
-
   <!-- SCRIPT LINK -->
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-
-
+    <script src="/static/script.js"></script>
 
     <script>
       console.log("Script is running!");
    </script>
-
-
 
    <script>
     console.log("Checking if particles.js is loading...");
@@ -88,6 +79,5 @@
     }
   </script>
 
-  
 </body>
 </html>

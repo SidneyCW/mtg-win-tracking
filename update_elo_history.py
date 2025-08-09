@@ -1,16 +1,14 @@
 import mysql.connector
 import math
-from add_game import update_player_stats
+from utils.db_utils import update_player_stats
+from dotenv import dotenv_values
+from pathlib import Path
 
-DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'flaskuser',
-    'password': 'DrXrus_5425',
-    'database': 'mtg_tracker'
-}
+dotenv_path = Path(".env")
+dotenv = dotenv_values(dotenv_path)
 
 def get_db_connection():
-    return mysql.connector.connect(**DB_CONFIG)
+    return mysql.connector.connect(**dotenv['DB_CONFIG'])
 
 def update_all_elos():
     conn = get_db_connection()

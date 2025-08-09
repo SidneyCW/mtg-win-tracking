@@ -1,5 +1,5 @@
 import mysql.connector
-from db_util import get_db_connection
+from utils.db_utils import get_db_connection
 
 def init_player(name):
     """Initializes a new player in the MySQL database if they don't already exist."""

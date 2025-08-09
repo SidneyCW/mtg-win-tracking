@@ -1,0 +1,4 @@
+.env
+__pycache__
+backups
+update_elo_history.py
