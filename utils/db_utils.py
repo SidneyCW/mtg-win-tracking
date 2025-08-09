@@ -1,16 +1,13 @@
 import mysql.connector
 from elo_utils import calculate_elo_change
+from dotenv import dotenv_values
+from pathlib import Path
 
-DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'flaskuser',
-    'password': 'DrXrus_5425',
-    'database': 'mtg_tracker'
-}
-
+dotenv_path = Path(".env")
+dotenv = dotenv_values(dotenv_path)
 # Initializes the connection to the database given the credentials above
 def get_db_connection():
-    return mysql.connector.connect(**DB_CONFIG)
+    return mysql.connector.connect(**dotenv["DB_CONFIG"])
 
 # Initializes the database if tables do not exist
 def init_db():
